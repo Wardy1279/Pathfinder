@@ -1,0 +1,121 @@
+Cameron Ward
+
+CAREER OBJECTIVES
+
+I am a highly motivated engineering graduate passionate about applying data analysis to make efficient and effective decisions.
+
+I am eager to apply the principles of problem solving and data analysis that I have developed throughout my studies at university and further self-directed learning.
+
+
+WORK EXPERIENCE
+
+Safran Electronics and Defence Systems 
+Engineering Intern 
+Dec 2022 - July 2023 
+The focus of my internship was Safran's 'Vigy Testing Platform' which is being used by the team in Botany to integrate their Vigy Observer HD Optronics System with external components such as radar, GPS and gyrocompass, assisting in preparing for future customer installations.
+
+Overseeing my project from start to finish, my responsibilities included:
+
+Collating a specification package based upon requirements from multiple stakeholders within Safran and externals
+
+Designing and installing the power system for the Vigy Testing Platform
+
+Independently hosting regular meetings with subcontractors
+
+Monitoring deadlines and ensuring deliverables were received from subcontractor
+
+Completed verification and validation activities upon receiving platform from subcontractor 
+
+Southern Swell 
+Aerial Survey Support Engineer 
+May 2021 - July 2021 
+An Engineering Firm primarily involved in Building Information Modelling, Building Services Engineering, Specialist Lighting Design and Facilities Management.
+
+Conducted scanning operations of the National Gallery of Australia for modernisation
+
+Coordinated with different project teams to assemble efficient flight paths for the drone pilot
+
+
+TECHNICAL SKILLS
+
+Data Pipelines: Python / Pandas 
+Documentation: Microsoft Office / Google Drive 
+Databases: SQL 
+Programming Languages: C++ / Python / SQL 
+Computer Aided Design: Solidworks / Inventor 
+Communication: Microsoft Teams / Zoom
+
+
+EDUCATION
+
+University of Technology Sydney 
+Graduated 
+Bachelor of Engineering (Honours) Bachelor of Business
+
+Majoring in Mechatronic Engineering and Economics
+
+WAM of 73%
+
+
+
+PUBLICATIONS
+
+Cameron Ward.
+
+(2023).
+
+Optimising Additive Manufacturing Technologies For Emergency Response Supply Chains With Consideration For Cost, Performance, Accessibility, And Local Expertise.
+
+Faculty of Engineering and Information Technology, University of Technology Sydney.
+
+
+EXTRA-CURRICULAR ACTIVITIES
+
+UTS Aerospace Society (AeroSoc) 
+President / Chief Technical Officer 
+Nov 2021 - Current
+
+Project Lead for successful High Altitude Balloon Launch in collaboration with the Royal Aeronautical Society, Young Engineers Australia and the Faculty of Engineering and Information Technology at UTS
+
+Organised the 2023 Inter-University Aerospace Networking Night with the UNSW Aerospace Society, AIAA USYD and Sydney Women in Aerospace Engineering 
+
+Royal Aeronautical Society 
+Student Committee Member
+Nov 2022 - Nov 2023 
+
+Elected as the first UTS representative onto the Student Committee
+
+Represented UTS at the annual Sir Charles Kingsford Smith Memorial Lecture 
+
+UTS Rover Team RockE 
+Design Engineer
+Nov 2021 - Nov 2022 
+
+Designed a 6 DOF Manipulator Arm for UTS’ RockE the Rover as a part of the Australian Rover Competition hosted in Adelaide
+
+
+CORE SKILLS
+
+Critical Thinking
+
+Identifies and synthesises patterns and trends from various sources of information to reach meaningful insights.
+
+
+Attention to Detail
+
+Accurately identifies and rectifies discrepancies or errors in deliverables.
+
+Ensured deadlines and deliverables were met by monitoring and verifying project activities during internship.
+
+
+Problem Solving
+
+Identifies problems and develops logical solutions that address the problems effectively.
+
+Applied problem-solving skills in designing and installing power systems, coordinating scanning operations, and leading technical projects in academic and professional settings.
+
+
+REFEREES
+
+Available on Request
+
