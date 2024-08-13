@@ -7,6 +7,7 @@ from bs4 import BeautifulSoup
 import time
 import csv
 import os
+import random
 
 # Set up the browser (make sure you have the ChromeDriver installed)
 driver = webdriver.Chrome()
@@ -29,75 +30,83 @@ WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, "global-n
 keyword = 'Engineer'
 location = 'Sydney'
 
-# Construct the search URL
-search_url = f"https://www.linkedin.com/jobs/search/?keywords={keyword}&location={location}"
-driver.get(search_url)
-
-# Wait for the job listings container to load
-WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CLASS_NAME, "jobs-search-results-list")))
-
-# Improved scrolling function for specific element with specific class name
-def scroll_element(class_name):
-    jobs_container = driver.find_element(By.CLASS_NAME, class_name)
-    last_height = driver.execute_script("return arguments[0].scrollHeight", jobs_container)
-
-    while True:
-        # Scroll incrementally
-        driver.execute_script("arguments[0].scrollTop += 500", jobs_container)
-
-        # Wait for new content to load
-        time.sleep(0.5)  # Adjust if needed
-
-        # Calculate new height and compare with last height
-        new_height = driver.execute_script("return arguments[0].scrollHeight", jobs_container)
-        if new_height == last_height:
-            break
-        last_height = new_height
-
-# Perform scrolling within the jobs container
-scroll_element("jobs-search-results-list")
-
-# Get page content and parse with BeautifulSoup
-soup = BeautifulSoup(driver.page_source, 'html.parser')
-
-# Check if the job listings are found
-job_listings = soup.find_all('li', class_='jobs-search-results__list-item')
-print(f"Number of job listings found: {len(job_listings)}")
-
-# List to store job data
+# List to store all job data
 jobs = []
 
-# For Each Listing
-for listing in job_listings:
-    job_data = {}
+# Function to scrape job listings on the current page
+def scrape_current_page():
+    # Improved scrolling function for specific element with specific class name
+    def scroll_element(class_name):
+        jobs_container = driver.find_element(By.CLASS_NAME, class_name)
+        last_height = driver.execute_script("return arguments[0].scrollHeight", jobs_container)
 
-    # Get Role Title
-    title_element = listing.find('span', class_='visually-hidden')
-    if title_element:
-        job_data["job_title"] = title_element.get_text(strip=True)
+        while True:
+            # Scroll incrementally
+            driver.execute_script("arguments[0].scrollTop += 500", jobs_container)
 
-    # Get Company
-    company_element = listing.find('span', class_='job-card-container__primary-description')
-    if company_element:
-        job_data["company_name"] = company_element.get_text(strip=True)
+            # Wait for new content to load
+            time.sleep(random.uniform(1.5, 3.0))  # Randomize delay
 
-    # Get ID and Construct URL
-    ID_element = listing.find('a', class_='job-card-container__link')
-    if ID_element:
-        href_value = ID_element['href']
-        segments = [segment for segment in href_value.split('/') if segment]
-        if len(segments) > 2:  # Ensure segments have enough parts
-            job_data["url"] = 'https://www.linkedin.com/jobs/view/' + segments[2]
-        else:
-            print(f"URL segment issue: {href_value}")
+            # Calculate new height and compare with last height
+            new_height = driver.execute_script("return arguments[0].scrollHeight", jobs_container)
+            if new_height == last_height:
+                break
+            last_height = new_height
 
-    if job_data.get("url") is None:
-        print(f"Missing URL for job data: {job_data}")
+    # Perform scrolling within the jobs container
+    scroll_element("jobs-search-results-list")
 
-    # Add the job data to the list
-    jobs.append(job_data)
+    # Get page content and parse with BeautifulSoup
+    soup = BeautifulSoup(driver.page_source, 'html.parser')
 
-# Iterate through Job URLs to find description
+    # Check if the job listings are found
+    job_listings = soup.find_all('li', class_='jobs-search-results__list-item')
+    print(f"Number of job listings found: {len(job_listings)}")
+
+    # For Each Listing
+    for listing in job_listings:
+        job_data = {}
+
+        # Get Role Title
+        title_element = listing.find('span', class_='visually-hidden')
+        if title_element:
+            job_data["job_title"] = title_element.get_text(strip=True)
+
+        # Get Company
+        company_element = listing.find('span', class_='job-card-container__primary-description')
+        if company_element:
+            job_data["company_name"] = company_element.get_text(strip=True)
+
+        # Get ID and Construct URL
+        ID_element = listing.find('a', class_='job-card-container__link')
+        if ID_element:
+            href_value = ID_element['href']
+            segments = [segment for segment in href_value.split('/') if segment]
+            if len(segments) > 2:  # Ensure segments have enough parts
+                job_data["url"] = 'https://www.linkedin.com/jobs/view/' + segments[2]
+            else:
+                print(f"URL segment issue: {href_value}")
+
+        if job_data.get("url") is None:
+            print(f"Missing URL for job data: {job_data}")
+
+        # Add the job data to the list
+        jobs.append(job_data)
+
+# Iterate through the first 4 pages
+for page_number in range(4):
+    # Construct the search URL with pagination
+    start = page_number * 25
+    search_url = f"https://www.linkedin.com/jobs/search/?keywords={keyword}&location={location}&start={start}"
+    driver.get(search_url)
+
+    # Wait for the job listings container to load
+    WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CLASS_NAME, "jobs-search-results-list")))
+
+    # Scrape the current page
+    scrape_current_page()
+
+# After collecting all job URLs, iterate through them to find descriptions
 for job in jobs:
     if 'url' not in job:
         print(f"Skipping job with missing URL: {job}")
@@ -105,15 +114,23 @@ for job in jobs:
 
     driver.get(job['url'])
 
-    # Wait for the job description to load (adjust the time as needed)
-    WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CLASS_NAME, "jobs-description__content--condensed")))
+    # Random delay before loading the job description
+    time.sleep(random.uniform(3, 6))
 
-    # Extract the job description
-    soup = BeautifulSoup(driver.page_source, 'html.parser')
-    description_div = soup.find('div', class_='jobs-description__content--condensed')
+    try:
+        # Wait for the job description to load (adjust the time as needed)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CLASS_NAME, "jobs-description__content--condensed")))
 
-    job_description = description_div.get_text(strip=True) if description_div else "Description not available"
-    job['description'] = job_description  # Save the description to the job dictionary
+        # Extract the job description
+        soup = BeautifulSoup(driver.page_source, 'html.parser')
+        description_div = soup.find('div', class_='jobs-description__content--condensed')
+
+        job_description = description_div.get_text(strip=True) if description_div else "Description not available"
+        job['description'] = job_description  # Save the description to the job dictionary
+
+    except Exception as e:
+        print(f"Error loading job description for {job['url']}: {e}")
+        job['description'] = "Description not available"
 
 # Close the browser
 driver.quit()

@@ -4,7 +4,10 @@ import os
 
 # Function to prepare the prompt for ChatGPT
 def prepare_prompt(resume_text, jobs_df):
-    prompt = f"Rank the following jobs based on their suitability to my resume. Provide a list from the most suitable to the least suitable. Please note that this is my first role out of university and I need a job with minimal required experience. My resume is as follows:\n\n{resume_text}\n\nJobs:\n"
+    prompt = (f"Rank the following jobs based on their suitability to my resume. Provide a list from the most suitable "
+              f"to the least suitable. Please note that this is my first role out of university and I need a job with "
+              f"minimal required experience. Please respond with the job title and company, the url, and the reasons "
+              f"for suitability or otherwise. My resume is as follows:\n\n{resume_text}\n\nJobs:\n")
     for index, row in jobs_df.iterrows():
         prompt += f"{index + 1}. Job Title: {row['job_title']}, Company: {row['company_name']}, URL: {row['url']}, Description: {row['description']}\n"
     return prompt
