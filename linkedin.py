@@ -136,7 +136,7 @@ for job in jobs:
 driver.quit()
 
 # Define the CSV file name
-csv_file = 'jobs.csv'
+csv_file = 'linkedin_jobs.csv'
 
 # Specify the keys of your dictionary that you want as columns in the CSV
 fieldnames = ['job_title', 'company_name', 'url', 'description']
